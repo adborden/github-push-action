@@ -8,6 +8,9 @@ inputs:
   github_token:
     description: 'Token for the repo. Can be passed in using $\{{ secrets.GITHUB_TOKEN }}'
     required: true
+  github_user:
+    description: 'When using a personal access token, the GitHub user to make the API request.'
+    required: false
   repository:
     description: 'Repository name to push. Default or empty value represents current github repository (${GITHUB_REPOSITORY})'
     default: ''
