@@ -7,8 +7,11 @@ INPUT_TAGS=${INPUT_TAGS:-false}
 INPUT_DIRECTORY=${INPUT_DIRECTORY:-'.'}
 _FORCE_OPTION=''
 REPOSITORY=${INPUT_REPOSITORY:-$GITHUB_REPOSITORY}
+USER=${INPUT_GITHUB_USER:-$GITHUB_ACTOR}
 
-echo "Push to branch $INPUT_BRANCH";
+
+
+echo "Push to branch $INPUT_BRANCH as $USER";
 [ -z "${INPUT_GITHUB_TOKEN}" ] && {
     echo 'Missing input "github_token: ${{ secrets.GITHUB_TOKEN }}".';
     exit 1;
@@ -24,6 +27,6 @@ fi
 
 cd ${INPUT_DIRECTORY}
 
-remote_repo="https://${INPUT_GITHUB_USER:-$GITHUB_ACTOR}:${INPUT_GITHUB_TOKEN}@github.com/${REPOSITORY}.git"
+remote_repo="https://${USER}:${INPUT_GITHUB_TOKEN}@github.com/${REPOSITORY}.git"
 
 git push "${remote_repo}" HEAD:${INPUT_BRANCH} --follow-tags $_FORCE_OPTION $_TAGS;
